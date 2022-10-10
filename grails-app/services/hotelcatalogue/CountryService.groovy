@@ -14,17 +14,15 @@ class CountryService {
         Country.list()
     }
 
-    List<String> save(CountryDto countryDto) {
-        List<String> errors = new ArrayList<>()
-        Country country = createCountryFromDto(countryDto, errors)
-        if (errors.empty) {
+    Country save(CountryDto countryDto) {
+        Country country = createCountryFromDto(countryDto)
+        if (!country.errors.hasErrors()) {
             country.save()
-            return Collections.emptyList()
         }
-        return errors
+        return country
     }
 
-    def createCountryFromDto(CountryDto countryDto, errors) {
+    def createCountryFromDto(CountryDto countryDto) {
         Country country
         if (countryDto.id != null)
             country = Country.findById(countryDto.id)
@@ -32,20 +30,19 @@ class CountryService {
             country = new Country()
 
         if (countryDto.name.length() == 0 || countryDto.name.length() > 255)
-            errors.add("Название страны должно иметь длину от 1 до 255 символов")
+            country.errors.reject("country.name.length", "Название страны должно иметь длину от 1 до 255 символов")
 
         Country existingCountry = Country.findByNameIlike(countryDto.name)
         if (existingCountry != null && existingCountry.id != country.id && existingCountry.name.equalsIgnoreCase(countryDto.name))
-            errors.add("Страна с таким названием уже существует")
+            country.errors.reject("country.name.alreadyExists", "Страна с таким названием уже существует")
 
         if ((countryDto.capital.length() == 0 || countryDto.capital.length() > 128))
-            errors.add("Название столицы должно иметь от 1 до 128 символов")
+            country.errors.reject("country.capital.length", "Название столицы должно иметь от 1 до 128 символов")
 
-        if (!errors.empty)
-            return new Country()
-
-        country.name = countryDto.name
-        country.capital = countryDto.capital
+        if (!country.errors.hasErrors()) {
+            country.name = countryDto.name
+            country.capital = countryDto.capital
+        }
         return country
     }
 

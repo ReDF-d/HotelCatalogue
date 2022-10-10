@@ -44,7 +44,7 @@
                     <td><a href="../country/show/${it.id}">${it.name}</a></td>
                     <td>${it.capital}</td>
                     <td class="d-flex justify-content-center">
-                        <g:form action="update" params="[id: it.id]" method="get">
+                        <g:form action="edit" params="[id: it.id]" method="get">
                             <fieldset style="border: none">
                                 <input class="btn btn-primary mr-2" type="submit" value="Редактировать"/>
                             </fieldset>

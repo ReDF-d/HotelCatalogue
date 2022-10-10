@@ -10,7 +10,21 @@ class BootStrap {
         new Hotel(name: "Калина", country: russia, starRating: 3, siteAddress: "https://kalina-resort.ru").save()
         new Hotel(name: "Royal Hotel", country: usa, starRating: 5, siteAddress: "https://royalhotel.com").save()
         new Hotel(name: "Шанхай", country: china, starRating: 3).save()
+
+        new Hotel(name: "123", country: russia, starRating: 3).save()
+        new Hotel(name: "123", country: russia, starRating: 3).save()
+        new Hotel(name: "123", country: russia, starRating: 3).save()
+        new Hotel(name: "123", country: russia, starRating: 3).save()
+        new Hotel(name: "123", country: russia, starRating: 3).save()
+        new Hotel(name: "123", country: russia, starRating: 3).save()
+        new Hotel(name: "123", country: russia, starRating: 3).save()
+        new Hotel(name: "123", country: russia, starRating: 3).save()
+        new Hotel(name: "123", country: russia, starRating: 3).save()
+        new Hotel(name: "123", country: russia, starRating: 3).save()
+        new Hotel(name: "123", country: russia, starRating: 3).save()
+        new Hotel(name: "123", country: russia, starRating: 3).save()
     }
+
     def destroy = {
     }
 }

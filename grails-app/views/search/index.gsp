@@ -32,7 +32,7 @@
     <h1 class="text-center my-4">Поиск</h1>
 
     <div>
-        <g:form method="POST" action="results">
+        <g:form method="POST" action="results" params="[offset: 0, max: 10]">
             <fieldset>
                 <div class="row p-2">
                     <div class="col-6 text-right">Название отеля</div>
@@ -48,7 +48,6 @@
                     <div class="col-6 text-right"> <g:submitButton class="btn btn-primary" name="search" value="Найти"/></div>
                 </div>
             </fieldset>
-
         </g:form>
     </div>
 </div>

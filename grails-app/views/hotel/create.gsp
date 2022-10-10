@@ -34,9 +34,9 @@
 
     <div>
         <g:each in="${errorList}">
-            <p class="text-center" style="color: red; font-weight: bold; font-size: 17px">${it}</p>
+            <p class="text-center" style="color: red; font-weight: bold; font-size: 17px">${it.defaultMessage}</p>
         </g:each>
-        <g:form resource="${this.hotel}" method="POST" action="create">
+        <g:form resource="${this.hotel}" method="POST" action="save">
             <fieldset>
                 <div class="row p-2">
                     <div class="text-right col-6">Название отеля</div>

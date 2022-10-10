@@ -33,12 +33,15 @@
     <h1 class="text-center my-4">Результаты</h1>
     <g:if test="${results.empty}">
         <h2 class="text-center my-4">По Вашему запросу ничего не найдено</h2>
+
         <div class="text-center"><a class="btn btn-primary" href="${request.contextPath}/">Новый поиск</a></div>
     </g:if>
     <g:else>
         <div class="row p-3">
-            <div class="col ml-5"><p>Найдено ${results.size()} результатов</p></div>
-            <div class="col text-right mr-5"><a class="btn btn-primary" href="${request.contextPath}/">Новый поиск</a></div>
+            <div class="col ml-5"><p>Найдено ${total} результатов</p></div>
+
+            <div class="col text-right mr-5"><a class="btn btn-primary" href="${request.contextPath}/">Новый поиск</a>
+            </div>
         </div>
         <table class="table">
             <tr class="p-3 text-center" style="font-size: 18px">
@@ -50,14 +53,21 @@
                 <tr class="p-3 text-center">
                     <td>${it.starRating}</td>
                     <td>${it.name}</td>
-                <td>
-                    <g:if test="${it.siteAddress != null}">
-                        <a href="${it.siteAddress}" target="_blank">Перейти на сайт</a>
-                    </g:if>
-                </td>
+                    <td>
+                        <g:if test="${it.siteAddress != null}">
+                            <a href="${it.siteAddress}" target="_blank">Перейти на сайт</a>
+                        </g:if>
+                    </td>
                 </tr>
             </g:each>
         </table>
+
+        <div class="pagination justify-content-center">
+            <g:paginate next="&gt;" prev="&lt;"
+                        controller="search"
+                        action="paginateResults" total="${total}"
+                        params="[hotelName: params.hotelName, country: params.country]"/>
+        </div>
     </g:else>
 </div>
 </body>

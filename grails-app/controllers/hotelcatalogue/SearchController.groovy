@@ -11,7 +11,14 @@ class SearchController {
     }
 
     def results(SearchDto searchDto) {
-        List<Hotel> results = searchService.search(searchDto)
-        return render (view:"results", model:[results: results])
+        def results = searchService.search(searchDto, params)
+        def total = searchService.searchTotalCount(searchDto)
+        return render(view: "results", model: [results: results, total: total],
+                params: [hotelName: searchDto.hotelName, country: searchDto.country, max: params.max, offset: params.offset])
+    }
+
+    def paginateResults() {
+        def searchDto = new SearchDto(params.hotelName, params.country)
+        return results(searchDto)
     }
 }

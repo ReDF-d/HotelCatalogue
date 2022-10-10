@@ -14,15 +14,16 @@ class CountryController {
         respond countryService.get(id)
     }
 
-    def create(CountryDto country) {
-        if (request.method == "GET") {
-            return render(view: "create", model: [errorList: Collections.emptyList()])
-        }
-        List<String> errorList = countryService.save(country)
-        if (errorList.empty)
+    def create() {
+        return render(view: "create")
+    }
+
+    def save(CountryDto countryDto) {
+        Country country = countryService.save(countryDto)
+        if (!country.errors.hasErrors())
             redirect action: "index", method: "GET"
         else
-            [errorList: errorList]
+            render(view: "create", model:[errorList: country.errors.allErrors])
     }
 
     def delete(Long id) {
@@ -30,16 +31,16 @@ class CountryController {
         redirect action: "index", method: "GET"
     }
 
-    def update(CountryDto countryDto) {
-        if (request.method == "GET") {
-            Country country = Country.get(Long.parseLong(params.id))
-            return render(view: "update", model: [country: country])
-        }
-        List<String> errorList = countryService.save(countryDto)
+    def edit() {
         Country country = Country.get(Long.parseLong(params.id))
-        if (errorList.empty)
+        return render(view: "update", model: [country: country])
+    }
+
+    def update(CountryDto countryDto) {
+        Country country = countryService.save(countryDto)
+        if (!country.errors.hasErrors())
             redirect action: "index", method: "GET"
         else
-            [errorList: errorList, country: country]
+            [errorList: country.errors.allErrors, country: country]
     }
 }

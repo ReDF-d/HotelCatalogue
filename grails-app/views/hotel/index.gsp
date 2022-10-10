@@ -48,7 +48,7 @@
                     <td>${it.starRating}</td>
                     <td><a href="${it.siteAddress}" target="_blank">${it.siteAddress}</a></td>
                     <td class="d-flex justify-content-center">
-                        <g:form action="update" params="[id: it.id]" method="get">
+                        <g:form action="edit" params="[id: it.id]" method="get">
                             <fieldset>
                                 <input class="btn btn-primary mr-2" type="submit" value="Редактировать"/>
                             </fieldset>

@@ -14,28 +14,29 @@ class HotelController {
         respond hotelService.get(id)
     }
 
-    def update(HotelDto hotelDto) {
-        if (request.method == "GET") {
-            Hotel hotel = Hotel.get(Long.parseLong(params.id))
-            return render(view: "update", model: [hotel: hotel])
-        }
-        List<String> errorList = hotelService.save(hotelDto)
+    def edit() {
         Hotel hotel = Hotel.get(Long.parseLong(params.id))
-        if (errorList.empty)
-            redirect action: "index", method: "GET"
-        else
-            [errorList: errorList, hotel: hotel]
+        return render(view: "update", model: [hotel: hotel])
     }
 
-    def create(HotelDto hotel) {
-        if (request.method == "GET") {
-            return render(view: "create", model: [errorList: Collections.emptyList()])
-        }
-        List<String> errorList = hotelService.save(hotel)
-        if (errorList.empty)
+    def update(HotelDto hotelDto) {
+        Hotel hotel = hotelService.save(hotelDto)
+        if (!hotel.errors.hasErrors())
             redirect action: "index", method: "GET"
         else
-            [errorList: errorList]
+            [errorList: hotel.errors.allErrors, hotel: hotel]
+    }
+
+    def create() {
+        return render(view: "create")
+    }
+
+    def save(HotelDto hotelDto) {
+        Hotel hotel = hotelService.save(hotelDto)
+        if (!hotel.errors.hasErrors())
+            redirect action: "index", method: "GET"
+        else
+            render(view:"create", model:[errorList: hotel.errors.allErrors])
     }
 
     def delete(Long id) {

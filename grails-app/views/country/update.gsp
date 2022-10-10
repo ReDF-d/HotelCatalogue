@@ -33,7 +33,7 @@
 
     <div>
         <g:each in="${errorList}">
-            <p class="text-center" style="color: red; font-size: 17px; font-weight: bold">${it}</p>
+            <p class="text-center" style="color: red; font-size: 17px; font-weight: bold">${it.defaultMessage}</p>
         </g:each>
         <g:form resource="${this.country}" method="POST" action="update">
             <fieldset>

@@ -33,9 +33,9 @@
 
     <div>
         <g:each in="${errorList}">
-            <p class="text-center" style="color: red; font-size: 17px; font-weight: bold">${it}</p>
+            <p class="text-center" style="color: red; font-size: 17px; font-weight: bold">${it.defaultMessage}</p>
         </g:each>
-        <g:form resource="${this.country}" method="POST" action="create">
+        <g:form resource="${this.country}" method="POST" action="save">
             <fieldset>
                 <div class="row p-2">
                     <div class="text-right col-6"><span>Название страны</span></div>
